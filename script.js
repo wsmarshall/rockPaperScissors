@@ -2,7 +2,8 @@
 
 
 function getComputerChoice() {
-    let rawChoice = (Math.random * 100);
+    let rawChoice = (Math.random() * 100);
+    console.log("inside getComputerChoice, computer chooses: ", rawChoice);
     if (rawChoice <=33){
         return "rock";
     }
@@ -19,5 +20,5 @@ function newRound(playerSelection = "rock", computerSelection = "rock") {
 }
 
 function game() {
-    
+
 }
