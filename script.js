@@ -31,22 +31,27 @@ function oneRound(playerSelection = "rock", computerSelection = "rock") {
     }
     else if (playerSelection == computerSelection) {
         console.log("A tie! " + playerSelection + " meets " + computerSelection + "!");
-        return 0;
+        return -1;
     }
     else {
         console.log("You lose! "+ computerSelection + " beats " + playerSelection + "!");
-        return 0;
+        return -1;
     }
 
 }
 
 function game() {
-    numWins = 0; //keeps track for best of 5
+    numPlayerWins = 0; //keeps track for best of 5 for player
+    numComputerWins = 0; //keeps track for best of 5 for computer
 
-    for (let i = 0; i < 5; i++) {
+    while (numPlayerWins < 5 && numComputerWins < 5) {
         playerSelection = prompt("Let's play rock, paper, scissors! Choose one of rock, paper, or scissors.");
         computerSelection = getComputerChoice();
-        numWins += oneRound(playerSelection, computerSelection);
+        if (oneRound(playerSelection, computerSelection) > 0) {
+            numPlayerWins += 1;
+        } else {
+            numComputerWins += 1;
+        }
     }
 
     if (numWins > 2) {
