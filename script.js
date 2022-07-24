@@ -1,8 +1,6 @@
-
-
 function getComputerChoice() {
     let rawChoice = (Math.random() * 100);
-    console.log("inside getComputerChoice, computer chooses: ", rawChoice);
+    //console.log("inside getComputerChoice, computer chooses: ", rawChoice);
     if (rawChoice <=33){
         return "rock";
     }
@@ -31,7 +29,7 @@ function oneRound(playerSelection = "rock", computerSelection = "rock") {
     }
     else if (playerSelection == computerSelection) {
         console.log("A tie! " + playerSelection + " meets " + computerSelection + "!");
-        return -1;
+        return 0;
     }
     else {
         console.log("You lose! "+ computerSelection + " beats " + playerSelection + "!");
@@ -45,11 +43,11 @@ function game() {
     numComputerWins = 0; //keeps track for best of 5 for computer
 
     while (numPlayerWins < 5 && numComputerWins < 5) {
-        playerSelection = prompt("Let's play rock, paper, scissors! Choose one of rock, paper, or scissors.");
         computerSelection = getComputerChoice();
-        if (oneRound(playerSelection, computerSelection) > 0) {
+        roundResult = oneRound(playerSelection, computerSelection);
+        if ((roundResult) > 0) { //player won the round
             numPlayerWins += 1;
-        } else {
+        } else if (roundResult < 0){ //computer won the round
             numComputerWins += 1;
         }
     }
@@ -62,3 +60,10 @@ function game() {
 
 }
 
+
+
+const rock = document.querySelector('body .controls .rock');
+rock.addEventListener('click', console.log('rock'));
+
+const paper = document.querySelector('body .controls .paper');
+rock.addEventListener('click', console.log('paper'));
