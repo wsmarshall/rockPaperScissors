@@ -5,3 +5,9 @@ body {
     justify-content: center;
     gap: 40px;
 }
+
+h1 {
+    margin: 100px;
+    padding: 100px;
+    gap: 100px;
+}
