@@ -1,3 +1,20 @@
+let numPlayerWins = 0; //keeps track for first to 5 wins for player
+let numComputerWins = 0; //keeps track for first to 5 wins for computer
+
+let displayPlayerWins = document.querySelector('.player');
+let displayComputerWins = document.querySelector('.computer'); 
+
+const rock = document.querySelector('#rock');
+rock.addEventListener('click', () => {oneRound('rock', getComputerChoice())});
+
+const paper = document.querySelector('#paper');
+paper.addEventListener('click', () => {oneRound('paper', getComputerChoice())});
+
+const scissors = document.querySelector('#scissors');
+scissors.addEventListener('click', () => {oneRound('scissors', getComputerChoice())});
+
+const updateLine = document.querySelector('#update');
+
 function getComputerChoice() {
     let rawChoice = (Math.random() * 100);
     //console.log("inside getComputerChoice, computer chooses: ", rawChoice);
@@ -16,54 +33,32 @@ function oneRound(playerSelection = "rock", computerSelection = "rock") {
     playerSelection = playerSelection.toLowerCase(); //makes input case insensitive
 
     if (playerSelection == "paper" && computerSelection == "rock") {
-        console.log("You win! Paper beats Rock!");
-        return 1;
+        numPlayerWins += 1;
+        updateLine.textContent = "You win! Paper beats Rock!";
+        displayPlayerWins.textContent = numPlayerWins;
     }
     else if (playerSelection == "rock" && computerSelection == "scissors") {
-        console.log("You win! Rock beats Scissors!");
-        return 1;
+        numPlayerWins += 1;
+        updateLine.textContent = "You win! Rock beats Scissors!";
+        displayPlayerWins.textContent = numPlayerWins;
     }
     else if (playerSelection == "scissors" && computerSelection == "paper") {
-        console.log("You win! Scissors beats Paper!");
-        return 1;
+        numPlayerWins += 1;
+        updateLine.textContent = "You win! Scissors beats Paper!";
+        displayPlayerWins.textContent = numPlayerWins;
     }
     else if (playerSelection == computerSelection) {
-        console.log("A tie! " + playerSelection + " meets " + computerSelection + "!");
-        return 0;
+        updateLine.textContent = "A tie! " + playerSelection + " meets " + computerSelection + "!";
     }
     else {
         console.log("You lose! "+ computerSelection + " beats " + playerSelection + "!");
-        return -1;
+        numComputerWins += 1;
+        updateLine.textContent = "You Lose!"+ computerSelection + " beats " + playerSelection + "!";
+        displayComputerWins.textContent = numComputerWins;
+    }
+
+    if (numPlayerWins >= 5 || numComputerWins >= 5){
+        updateLine.textContent = "Game Over! First to five wins!";
     }
 
 }
-
-function game() {
-    numPlayerWins = 0; //keeps track for best of 5 for player
-    numComputerWins = 0; //keeps track for best of 5 for computer
-
-    while (numPlayerWins < 5 && numComputerWins < 5) {
-        computerSelection = getComputerChoice();
-        roundResult = oneRound(playerSelection, computerSelection);
-        if ((roundResult) > 0) { //player won the round
-            numPlayerWins += 1;
-        } else if (roundResult < 0){ //computer won the round
-            numComputerWins += 1;
-        }
-    }
-
-    if (numWins > 2) {
-        console.log("You won best out of five! " + numWins + ":" + (5-numWins));
-    } else {
-        console.log("You lost best out of five! " + numWins + ":" + (5-numWins));
-    }
-
-}
-
-
-
-const rock = document.querySelector('body .controls .rock');
-rock.addEventListener('click', console.log('rock'));
-
-const paper = document.querySelector('body .controls .paper');
-rock.addEventListener('click', console.log('paper'));
